@@ -1,0 +1,75 @@
+@page
+@model TradeModel
+@{
+    ViewData["Title"] = "Trades";
+}
+
+<link rel="stylesheet" href="css/content.css"/>
+
+<h2>Trades (Rest Api)</h2>
+
+<form method="post">
+    <label for="pair">Trading Pair:</label>
+    <input type="text" id="pair" name="Pair" value="@Model.Pair" required />
+
+    <label for="maxCount">Max Count:</label>
+    <input type="number" id="maxCount" name="MaxCount" value="@Model.MaxCount" required min="1" />
+
+    <button type="submit" asp-page-handler="GetTrades">Get Trades</button>
+</form>
+
+<table id="restTradeTable">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Price</th>
+        <th>Amount</th>
+        <th>Side</th>
+        <th>Time</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var trade in Model.AccountTrades)
+    {
+        <tr>
+            <td>@trade.Id</td>
+            <td>@trade.Price</td>
+            <td>@trade.Amount</td>
+            <td>@trade.Side</td>
+            <td>@trade.Time</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<hr />
+
+
+<h2>Trades (WebSocket)</h2>
+
+<form id="wsTradeForm">
+    <label for="wsPair">Trading Pair:</label>
+    <input type="text" id="wsPair" value="@Model.Pair" required />
+
+    <label for="maxCount">Max Count:</label>
+    <input type="number" id="wsMaxCount" value="@Model.MaxCount" required min="1" />
+
+    <button type="submit" id ="wsRequestButton" asp-page-handler="GetTrades">Get Trades</button>
+</form>
+
+<table id="wsTradeTable">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Price</th>
+        <th>Amount</th>
+        <th>Side</th>
+        <th>Time</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<script src="js/signalr/dist/browser/signalr.js"></script>
+<script src="js/trade.js"></script>

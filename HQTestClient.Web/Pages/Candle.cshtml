@@ -1,0 +1,102 @@
+@page
+@model CandleModel
+@{
+    ViewData["Title"] = "Candles";
+}
+
+<link rel="stylesheet" href="css/content.css"/>
+
+<h2>Candles (Rest Api)</h2>
+
+<form method="post">
+    <label for="pair">Trading Pair:</label>
+    <input type="text" id="pair" name="Pair" value="@Model.Pair" required />
+
+    <label for="period">Period (seconds):</label>
+    <input type="number" id="period" name="Period" value="@Model.Period" required min="1" />
+
+    <label for="beginTime">Begin Time</label>
+    <input type="datetime-local" id="beginTime" name="From" value="@Model.From.UtcDateTime.ToString("yyyy-MM-ddTHH:mm")" required />
+
+    <label for="endTime">End Time</label>
+    <input type="datetime-local" id="endTime" name="To" value="@Model.To.UtcDateTime.ToString("yyyy-MM-ddTHH:mm")" required />
+
+    <label for="count">Count</label>
+    <input type="number" id="count" name="Count" value="@Model.Count" required min="1" />
+
+    <button type="submit" asp-page-handler="GetCandles">Get Candles</button>
+</form>
+
+<table id="restCandleTable">
+    <thead>
+    <tr>
+        <th>Pair</th>
+        <th>OpenPrice</th>
+        <th>HighPrice</th>
+        <th>LowPrice</th>
+        <th>ClosePrice</th>
+        <th>Price</th>
+        <th>Volume</th>
+        <th>OpenTime</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var candle in Model.Candles)
+    {
+        <tr>
+            <td>@candle.Pair</td>
+            <td>@candle.OpenPrice</td>
+            <td>@candle.HighPrice</td>
+            <td>@candle.LowPrice</td>
+            <td>@candle.ClosePrice</td>
+            <td>@candle.TotalPrice</td>
+            <td>@candle.TotalVolume</td>
+            <td>@candle.OpenTime</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<hr />
+
+
+<h2>Trades (WebSocket)</h2>
+
+<form id="wsCandleForm">
+    <label for="wsPair">Trading Pair:</label>
+    <input type="text" id="wsPair" name="Pair" value="@Model.Pair" required />
+
+    <label for="wsPeriod">Period (seconds):</label>
+    <input type="number" id="wsPeriod" name="Period" value="@Model.Period" required min="1" />
+
+    <label for="wsBeginTime">Begin Time</label>
+    <input type="datetime-local" id="wsBeginTime" name="From" value="@Model.To.UtcDateTime.ToString("yyyy-MM-ddTHH:mm")" required />
+
+    <label for="wsEndTime">End Time</label>
+    <input type="datetime-local" id="wsEndTime" name="To" value="@Model.From.UtcDateTime.ToString("yyyy-MM-ddTHH:mm")" required />
+
+    <label for="wsCount">Count</label>
+    <input type="number" id="wsCount" name="Count" value="@Model.Count" required min="1" />
+
+    <button type="submit" id ="wsRequestButton" asp-page-handler="GetCandles">Get Candles</button>
+</form>
+
+<table id="wsCandleTable">
+    <thead>
+    <tr>
+        <th>Pair</th>
+        <th>OpenPrice</th>
+        <th>HighPrice</th>
+        <th>LowPrice</th>
+        <th>ClosePrice</th>
+        <th>Price</th>
+        <th>Volume</th>
+        <th>OpenTime</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<script src="js/signalr/dist/browser/signalr.js"></script>
+<script src="js/candle.js"></script>

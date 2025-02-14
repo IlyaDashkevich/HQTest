@@ -1,0 +1,41 @@
+@page
+@model HQTestClient.Web.Pages.BalanceModel
+
+<h2>Balance</h2>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Cryptocurrency</th>
+        <th>Amount</th>
+        <th>Balance</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>BTC</td>
+        <td>@Model.Balance.AmountBTC</td>
+        <td>@Model.Balance.TotalBTC</td>
+    </tr>
+    <tr>
+        <td>XRP</td>
+        <td>@Model.Balance.AmountXRP</td>
+        <td>@Model.Balance.TotalXRP</td>
+    </tr>
+    <tr>
+        <td>XMR</td>
+        <td>@Model.Balance.AmountXMR</td>
+        <td>@Model.Balance.TotalXMR</td>
+    </tr>
+    <tr>
+        <td>DASH</td>
+        <td>@Model.Balance.AmountDASH</td>
+        <td>@Model.Balance.TotalDASH</td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="total-usdt mt-4" style="font-weight: bold; font-size: 1.2em;">
+    <span>Total USDT: </span>
+    <span>@Model.Balance.TotalUSDT</span>
+</div>
