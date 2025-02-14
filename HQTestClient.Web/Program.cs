@@ -1,5 +1,3 @@
-using HQTestClient.Domain.Models;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
@@ -13,6 +11,7 @@ builder.Services.AddSingleton<WebSocketApi>(provider => new WebSocketApi());
 
 builder.Services.AddHttpClient<BinanceRestClient>();
 builder.Services.AddHttpClient<BinanceWebSocketClient>();
+
 builder.Services.AddScoped<ITestConnector,BinanceConnector>(provider =>
 {
     var configuration = provider.GetRequiredService<IConfiguration>();

@@ -1,4 +1,5 @@
 ﻿namespace HQTestClient.Domain.Models
+
 {
     public class Candle
     {

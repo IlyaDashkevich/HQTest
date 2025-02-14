@@ -1,6 +1,6 @@
-
 namespace HQTestClient.Infrastructure.Services;
 [AutoInterface]
+
 public class BalanceService : IBalanceService
 {
     private readonly ITestConnector _testConnector;
