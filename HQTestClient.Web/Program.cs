@@ -4,7 +4,6 @@ builder.Services.AddRazorPages();
 builder.Services.AddSignalR(e =>
     {
         e.EnableDetailedErrors = true;
-
     });
 
 builder.Services.AddSingleton<WebSocketApi>(provider => new WebSocketApi());
